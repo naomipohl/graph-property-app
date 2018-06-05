@@ -1,0 +1,92 @@
+<!DOCTYPE=HTML>
+<html>
+  <head>
+    <title>About</title>
+    <link rel="stylesheet" href="/static/css/stylin.css">
+  </head>
+  <body>
+	<h1> About</h1>
+	<hr>
+    <div id='bip' className='box'>
+	 <br></br>
+		<h2><strong><u>Bipartite</u></strong></h2>
+		<ul>
+		<p>A graph, G, is bipartite if and only if there is a bipartition for G. A bipartition is a partitioning of vertices such that no two vertices in the same partition are adjacent.</P>
+		<p>To check if a finite graph is bipartite we first use the fact that a graph is bipartite if and only if all of its connected components are bipartite. From this point forward, we will only consider connected graphs and note that every finite graph may be divided into connected components, and each connected component may be assayed separately.To check if each connected component is bipartite, we assume the graph is bipartite and attempt to build a bipartition. If we reach a contradiction, the graph must not be bipartite, because a bipartition is unique (up to swapping each vertex to its opposite partition set). Otherwise, we have shown the graph is bipartite by finding its bipartition.</p>
+		<p>To begin this process, we suppose that our graph, G(E,V), is bipartite. Thus, there exists a bipartition A ⋃ B = G and A ⋂ B = ⦰. We arbitrarily choose a vertex, v. Note that we can assign v to A or B. This assignment does not matter since, if we have a bipartite graph, we could reverse this choice and arrive at an equivalent (but opposite) bipartition. In the case that the graph is not bipartite, assigning a vertex to one partition set will not change the fact that we will eventually arrive at a contradiction. Thus, without loss of generality, we assign v ∊ A.</p>
+		<p>Once the first vertex is assigned to A, all of its neighbors must be assigned to B. At this point, we can check for contradictions. That is, we check to see if any vertices in B are adjacent. If this is the case, we have reached a contradiction and the graph is not bipartite. Otherwise, we continue by assigning the vertices adjacent to those in B to A. Again, we check for contradictions, and continue this process until every vertex is assigned to either A or B. In every case, we either reach a contradiction and conclude that G is not bipartite, or we never reach a contradiction, construct a valid bipartition, and conclude that G is bipartite.</p>
+		<img src="/static/img/graphK.png" id='H'>
+		<p>Consider <u><strong>Graph K</strong></u>. First, we choose an arbitrary vertex and assign it to one of two partition sets. Let 1 ∊ A. This means that it’s neighbors must be assigned to B. Precisely, 2 ∊ B and 3 ∊ B. Now, we check to see that no pairs of vertices are adjacent in B. Indeed, 2 and 3 are not adjacent. We repeat this process, assigning 4 ∊ A, 5 ∊ A and 6 ∊ A, checking that none of 1, 4, 5, and 6 are adjacent, and continuing. We eventually obtain A = {1, 4, 5, 6, 9} and B = {2, 3, 7, 8}. Note that none of the vertices in A are adjacent and the same is true for B. Thus, we’ve obtained a bipartition for K so K is bipartite.</p>
+		<img src="/static/img/graphJ.png" id='J'>
+		<p><u>Consider <strong>Graph J:</strong></u> Like the previous example, we begin by assigning an arbitrary vertex to a partition set. Let 1 ∊ A. Next, 2 ∊ B since 2 is adjacent to 1. No contradictions have arisen yet. Now, 3 and 4 are both adjacent to 2, thus 3 ∊ A and 4 ∊ A. However, 3 and 4 are adjacent so they must be in different partition sets. We have arrived at a contradiction, so J is not bipartite.</p>
+		<img src="/static/img/graphH.png">
+		<p><u>Consider <strong>Graph H:</strong></u> Again, we begin by assigning 1 ∊ A. Next, since 2 and 5 are adjacent to 1, 2 ∊ B and 5 ∊ B. 2 and 5 are not adjacent, so we have a valid bipartition thus far. Next, since 3 and 4 are adjacent to 2 and 5, respectively, 3 ∊ A and 4 ∊ A. However, 3 is adjacent to 4, so we have a contradiction. Thus, H is not bipartite. </p>
+		</ul>
+	</div>
+    <br></br>
+	<div id="euler" className='box'>
+		<h2><strong><u>Euler Cycles</u></strong></h2>
+		<ul>
+		<p>An Euler Cycle is a sequence of adjacent vertices (may be repeated) such that the first vertex is the last vertex and each edge is visited once in the course of traversing the cycle. If a graph contains an Euler Cycle, we call the graph Eulerian. Note that only finite, connected graphs have Euler Cycles. Thus, we will only consider graphs of this variety in this discussion since the first step in this algorithm is to check if a graph is connected and finite.</p>
+		<p>First, we will prove the following theorem: A graph has an Euler Cycle if and only if it is connected and every vertex has even degree.</p>
+		<p><u>Proof</u></p>
+		<p>To prove the forward direction, we note that if a graph has an Euler Cycle, it is clearly connected since a Euler Cycle must visit every vertex (since it visits every edge). Secondly, the Euler Cycle must enter a vertex exactly as many times as it leaves the vertex. Since these two actions must occur on different edges, each vertex has degree equal to two times the number of times it appears in the Euler Cycle. Thus each vertex has even degree. To prove the backwards direction, we prove two lemmas.</p>
+		<p>Lemma 1: If every vertex has even degree, then there is a collection of cycles such that every edge belongs to exactly one cycle.</p>
+		<p>Proof: Induction on the number of edges: e<br>
+		   Base case: e = 0. There are no cycles, and no edges so the base case is satisfied.<br>
+		   Inductive case: Start with a graph satisfying the hypothesis and add one edge. Start a path with this edge and extend the path until extension is no longer possible. Every vertex except the beginning and ending vertices have an even number of edges that have not been used (unless the beginning vertex is the ending vertex). This is a contradiction, so our path must be a cycle. Remove the edges used in this cycle and apply the inductive hypothesis to the smaller graph.</p>
+		<p>Lemma 2: If G is connected and there is a list of cycles containing every edge, then G has an Euler Cycle.</p>
+		<p>Proof. Induction on the number of cycles</p>
+		<p>Base case: 1 cycle. This cycle is an Euler Cycle<br>
+		   Inductive Case: Since the graph is connected, we can join two cycles at a common vertex to generate a new cycle. This reduces the problem, so we may apply the inductive hypothesis. ∎</p>
+		<p>Hence, to test if a graph has a Euler Cycle, one simply needs to check if a connected graph’s vertices all have even degree.</p>
+		<p>To construct an Euler Cycle knowing a graph exhibits the above property, one may choose a vertex arbitrarily and move from vertex to vertex. Since we can rotate an Euler Cycle to retrieve an equivalent Euler Cycle, we may arbitrarily choose a vertex to start our cycle without loss of generality. The choice of path is free, bar one condition: one must reserve a single edge to the initial vertex for the last step in the cycle. That is, one must be careful not to terminate the cycle early and become ‘stranded’ at the initial vertex.</p>
+		</ul>
+		<h2><strong><u>Euler Paths</u></strong></h2>
+		<ul>
+		<p>An Euler Path is a sequence of adjacent vertices (may be repeated) in a graph such that each edge is visited once in the course of traversing the path.</p>
+		<p>Note that only finite connected graphs emit Euler Paths. For this reason, we will only consider graphs of this variety in this discussion.</p>
+		<p>Seeing that one can always form a graph with an Euler Cycle from a graph with an Euler Path by adding a new vertex adjacent to the initial and terminal vertices, it is clear that graphs with Euler Paths have similar qualities to graphs with Euler Cycles. Specifically, every vertex has even degree except for two vertices with odd degree. These two vertices naturally become the starting and ending vertices for our Euler Path.</p>
+		<img src="/static/img/graphK.png" id='K'>
+		<p><u>Consider <strong>Graph K (again):</strong></u>To test if this graph has an Euler Cycle or Euler Path, we examine the degrees of the vertices. Since vertices 2, 3, 7 and 8 have degree 3, we know that this graph has neither an Euler Cycle nor an Euler Path.</p>
+		<img src="/static/img/graphL.png" id='L'>
+		<p><u>Consider <strong>Graph L:</strong></u> Since vertices in L have even degree except for 1 and 6, we know there must be an Euler Path in L. To find the path, we begin with one of the odd-degree vertices. Starting from 1, we can move anywhere in the graph, so long as we do not use the last edge leading to 6 until the end of the path. So, an Euler Path could be: (1, 2, 3, 6, 4, 2, 5, 4, 3, 5, 6). At the underlined 5 in the path, we are forced to proceed to vertex 4 and not vertex 3. Otherwise, we would end the path prematurely at vertex 6.</p>
+		<img src="/static/img/graphM.png" id='M'>
+		<p><u>Consider <strong>Graph M:</strong></u> Since each vertex has degree 4, there must be an Euler Cycle in this graph. To find the cycle we choose an arbitrary vertex and begin a cycle. (1, 2, 3, 4, 5, 1, 3, 5, 2, 4, 1). Note that if one accidentally ends a cycle before using all the edges, one can always insert another cycle to complete the Euler Cycle. For example, if we made the cycle: (1, 2, 4, 1) we can add the cycle: (2, 3, 4, 5, 1, 3, 5, 2) where vertex 2 appears in the previous cycle to obtain the full, Euler Cycle above.</p>
+		</ul>
+	</div>
+	<div id="hamil" className='box'>
+		<h2><strong><u>Hamilton Circuits</u></strong></h2>
+		<ul>
+		<p>A Hamilton Circuit is a sequence of adjacent vertices, such that every vertex in the graph appears exactly one time and the initial and terminal vertices are adjacent. If a graph contains a Hamilton Circuit, we call the graph <i>Hamiltonian</i>.</p>
+		<p>Note that all Hamiltonian Graphs are connected graphs, so we will restrict our discussion to connected graphs in this section.</p>
+		<p>A characterization of all Hamiltonian Graphs has not been obtained to date. This contrasts the elegant characterization of Eulerian Graphs seen above. Additionally, an efficient algorithm to assay whether or not a graph is Hamiltonian has not been achieved. The only algorithms that tackle this problem do so in polynomial time.</p>
+		<p>To detect if a graph has a Hamilton Circuit via brute force, the following approach can be used: First, choose a vertex arbitrarily. Since each successive pair of vertices in a Hamilton Circuit are adjacent, we can do this without loss of generality. Next, we need to construct all possible paths from this vertex without repeating any vertices. Once a path has been completed (i.e. there are no more unused vertices adjacent the last vertex), we need to check if every vertex of the graph appears in the path. Finally, we must check if the initial and terminal vertices are adjacent. If both of these conditions hold, then we have successfully found a Hamilton Circuit. Otherwise, if we test each possible path and none satisfy the above conditions, then we have shown that there is no Hamilton Circuit in the graph and the graph is, therefore, not Hamiltonian.</p>
+		</ul>
+		<h2><strong><u>Hamilton Paths</u></strong></h2>
+		<ul>
+		<p>A Hamilton Path is a sequence of adjacent vertices, such that every vertex in the graph appears exactly one time.</p>
+		<p>The problem of Hamilton Paths is similar to that of Hamilton Circuits--no efficient algorithm has been found to detect Hamilton Paths in a graph. However, a brute-force algorithm similar to the algorithm explained in the previous section can be used to detect these objects.</p>
+		<p>For this algorithm, we must cycle through each vertex in the graph. We start by constructing every path that begins at that vertex that does not repeat vertices. Once a path is complete (i.e. there are no more unused vertices adjacent to the last vertex) we determine if every vertex appears in the path. If this condition holds, we have successfully found a Hamilton Path. Otherwise, if we cycle through every initial vertex and find no Hamilton Path, we conclude that the graph has no Hamilton Path (and certainly not a Hamilton Circuit) and is, therefore, not Hamiltonian.</p>
+		<img src="/static/img/graphN.png" id='N'>
+		<p><u>Consider <strong>Graph N:</strong></u> It is fairly clear that this graph has no Hamilton Circuits or Hamilton Paths. However, we will examine how our algorithms would assess this graph.<br></br>
+		To assess if the graph has a Hamilton Circuit, we choose a vertex arbitrarily. Choose vertex 1. Next we write all possible paths from 1 without repeating any vertices. These are: (1, 2, 3), (1, 3, 2), (1, 4, 5), (1, 5, 4), (1, 6, 7), and (1, 7, 6). Next we check to see if any of these paths include all vertices. Since they do not, we conclude this graph has no Hamilton Circuit. 
+		<br></br>To assess if the graph has a Hamilton Path, we must repeat the above process for each vertex as the starting vertex. I will do this for vertex 2, and ask the reader to notice that vertex 2’s paths are analogous to every other vertices’ (except for 1’s) on N. The possible paths for 2 are as follows: (2, 1, 3), (2, 1, 4, 5), (2, 1, 5, 4), (2, 1, 6, 7), (2, 1, 7, 6), (2, 3, 1, 4, 5), (2, 3, 1, 5, 4), (2, 3, 1, 6, 7) and (2, 3, 1, 7, 6). Now, we check if any of these paths include all vertices. Since none do, and a similar result will be obtained for every other vertex, we conclude there are no Hamilton Paths in N.</p>
+		<img src="/static/img/graphO.png" id='O'>
+		<p><u>Consider <strong>Graph O:</strong></u> First, we will determine if there are any Hamilton Circuits in O. We choose 1 as our starting vertex, arbitrarily. All of the possible paths from 1 are as follows: (1, 2, 3, 6, 5), (1, 2, 5, 6, 3), (1, 4, 2, 3, 6, 5), (1, 4, 2, 5, 6, 3). Now, we note that the last two paths include all six vertices. Finally, we check if the initial and terminal vertices are adjacent. 1 and 5 and 1 and 3 are not adjacent, so neither of these are Hamilton Circuits. We conclude that O is not Hamiltonian. Notice that the two paths that include all vertices from the previous test will qualify as Hamilton Paths when the appropriate algorithm is employed (regardless of if the algorithm starts with vertex 1, 3, or 5 first). Thus, O has a Hamilton Path, but not a Hamilton Circuit.</p>
+		<img src="/static/img/graphP.png" id='P'>
+		<p><u>Consider <strong>Graph P:</strong></u> Again, to determine if this graph has a Hamilton Circuit, we arbitrarily choose vertex 1 to be our starting vertex. The possible paths starting at 1 are as follows: (1, 2, 3, 4, 5), (1, 2, 3, 5, 4), (1, 2, 4, 3, 5), (1, 2, 4, 5, 3), (1, 3, 2, 4, 5), (1, 3, 4, 2), (1, 3, 4, 5), (1, 3, 5, 4, 2). Now, we check to see if the paths contain each vertex. We refine our list of possibilities to the paths that contain each vertex (and are Hamilton Paths). Now, to determine if these are Hamilton Circuits, we must check if the initial and terminal vertices are adjacent. This is only the case in (1, 2, 4, 5, 3) and (1, 3, 5, 4, 2). Thus, (1, 2, 4, 5, 3) and (1, 3, 5, 4, 2) are Hamilton Circuits.</p>
+		</ul>
+	</div>
+	<h2>Works Cited</h2><br>
+	<p>“Backtracking | Set 6 (Hamiltonian Cycle).” GeeksforGeeks, 14 June 2017.</p>
+	<p>Khang, Andrew B, and Evan Ettinger. “UCSD CSE 101 MIDTERM 1, Winter 2008.” University of California of San Diego, San Diego, 1 Feb. 2008.</p>
+	<p>Sanchez-Torrubia, Floria, et al. “AN EMathTeacher TOOL FOR ACTIVE LEARNING FLEURY’S ALGORITHM.” Information Technologies and Knowledge, vol. 2, 2008, pp. 437–442.</p>
+	<button><a href='/'>Back</a></button>
+	<div>
+	<br></br>
+	<br></br>
+	<br></br>
+	</div>
+  </body>
+</html>

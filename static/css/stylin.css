@@ -1,0 +1,81 @@
+html {
+  background-color: #E9F7EF;
+}
+
+body {
+	text-align: center;
+	margin: 0 30px 100px 30px;
+	font: 14px Verdana;
+}
+
+h1 {
+	font: bold 60px Bookman;
+}
+
+canvas {
+	display: block;
+	max-width: 800px;
+	background: white;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	margin: 10px auto;
+}
+
+a {
+	color: black;
+}
+
+div {
+	margin: 30px auto;
+	text-align: left;
+	max-width: 800px;
+}
+
+.error {
+	display: block;
+	color: red;
+	font-size: 28px;
+	line-height: 30px;
+	padding: 30px;
+}
+
+p {
+	margin: 30px 0;
+	line-height: 20px;
+}
+
+.center {
+	text-align: center;
+}
+
+#instructions {
+    border-style: solid;
+    border-width: 3px;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-color: black;
+    padding:10px;
+}
+
+textarea {
+	display: none;
+	width: 75%;
+	height: 400px;
+	margin: 0 auto;
+}
+
+#H {
+  float: right;
+  margin-left: 30px;
+  margin-bottom: 30px; 
+}
+
+#J {
+  padding-left:10px; 
+  padding-right: 200px;
+}
+
+#L,#M,#K,#N,#O,#P {
+  padding-left: 30px; 
+  padding-right: 30px;
+}
